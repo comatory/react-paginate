@@ -29,7 +29,10 @@ export default class PaginationBoxView extends Component {
     previousLinkClassName : PropTypes.string,
     nextLinkClassName     : PropTypes.string,
     disabledClassName     : PropTypes.string,
-    breakClassName        : PropTypes.string
+    breakClassName        : PropTypes.string,
+    prevContainer         : PropTypes.string,
+    pagesContainer        : PropTypes.string,
+    nextContainer         : PropTypes.string,
   };
 
   static defaultProps = {
@@ -43,7 +46,10 @@ export default class PaginationBoxView extends Component {
     nextLabel             : "Next",
     breakLabel            : "...",
     disabledClassName     : "disabled",
-    disableInitialCallback: false
+    disableInitialCallback: false,
+    prevContainer         : 'prev-container',
+    nextContainer         : 'prev-container',
+    pagesContainer        : 'pages-container',
   };
 
   constructor(props) {
@@ -194,25 +200,31 @@ export default class PaginationBoxView extends Component {
 
     return (
       <ul className={this.props.containerClassName}>
-        <li className={previousClasses}>
-          <a onClick={this.handlePreviousPage}
-             className={this.props.previousLinkClassName}
-             tabIndex="0"
-             onKeyPress={this.handlePreviousPage}>
-            {this.props.previousLabel}
-          </a>
-        </li>
+        <ul className={this.props.prevContainer}>
+          <li className={previousClasses}>
+            <a onClick={this.handlePreviousPage}
+               className={this.props.previousLinkClassName}
+               tabIndex="0"
+               onKeyPress={this.handlePreviousPage}>
+              {this.props.previousLabel}
+            </a>
+          </li>
+        </ul>
 
-        {createFragment(this.pagination())}
+        <ul className={this.props.pagesContainer}>
+          {createFragment(this.pagination())}
+        </ul>
 
-        <li className={nextClasses}>
-          <a onClick={this.handleNextPage}
-             className={this.props.nextLinkClassName}
-             tabIndex="0"
-             onKeyPress={this.handleNextPage}>
-            {this.props.nextLabel}
-          </a>
-        </li>
+        <ul className={this.props.nextContainer}>
+          <li className={nextClasses}>
+            <a onClick={this.handleNextPage}
+               className={this.props.nextLinkClassName}
+               tabIndex="0"
+               onKeyPress={this.handleNextPage}>
+              {this.props.nextLabel}
+            </a>
+          </li>
+        </ul>
       </ul>
     );
   }
